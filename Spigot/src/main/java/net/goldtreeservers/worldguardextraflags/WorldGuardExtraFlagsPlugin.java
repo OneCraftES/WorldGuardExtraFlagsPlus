@@ -75,6 +75,7 @@ public class WorldGuardExtraFlagsPlugin extends JavaPlugin
 			flagRegistry.register(Flags.BLOCKED_EFFECTS);
 			flagRegistry.register(Flags.GODMODE);
 			flagRegistry.register(Flags.PLAYER_DAMAGE_MOBS);
+			flagRegistry.register(Flags.DISABLE_COLLISIONS);
 			flagRegistry.register(Flags.RESPAWN_LOCATION);
 			flagRegistry.register(Flags.WORLDEDIT);
 			flagRegistry.register(Flags.GIVE_EFFECTS);
@@ -123,6 +124,7 @@ public class WorldGuardExtraFlagsPlugin extends JavaPlugin
 		this.sessionManager.registerHandler(FlyFlagHandler.FACTORY(), null);
 		this.sessionManager.registerHandler(GlideFlagHandler.FACTORY(), null);
 		this.sessionManager.registerHandler(GodmodeFlagHandler.FACTORY(), null);
+		this.sessionManager.registerHandler(PlayerCollisionFlagHandler.FACTORY, null);
 		this.sessionManager.registerHandler(PlaySoundsFlagHandler.FACTORY(plugin), null);
 		this.sessionManager.registerHandler(BlockedEffectsFlagHandler.FACTORY(), null);
 		this.sessionManager.registerHandler(GiveEffectsFlagHandler.FACTORY(), null);
@@ -136,6 +138,8 @@ public class WorldGuardExtraFlagsPlugin extends JavaPlugin
 		this.getServer().getPluginManager().registerEvents(new BlockListener(this.worldGuardPlugin, this.regionContainer, this.sessionManager), this);
 		this.getServer().getPluginManager().registerEvents(new WorldListener(this, this.regionContainer), this);
 		this.getServer().getPluginManager().registerEvents(new EntityListener(this.worldGuardPlugin, this.regionContainer, this.sessionManager), this);
+
+		CollisionManager.initialize();
 
 		this.worldEditPlugin.getWorldEdit().getEventBus().register(new WorldEditListener(this.worldGuardPlugin, this.regionContainer, this.sessionManager));
 		
@@ -161,6 +165,12 @@ public class WorldGuardExtraFlagsPlugin extends JavaPlugin
 		}
 		
 		this.setupMetrics();
+	}
+
+	@Override
+	public void onDisable()
+	{
+		CollisionManager.cleanup();
 	}
 
 	public void doUnloadChunkFlagCheck(org.bukkit.World world)

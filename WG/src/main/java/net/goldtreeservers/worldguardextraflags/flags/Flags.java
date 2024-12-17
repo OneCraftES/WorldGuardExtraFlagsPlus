@@ -40,6 +40,7 @@ public final class Flags
 	
 	public final static StateFlag GODMODE = new StateFlag("godmode", false);
 	public final static StateFlag PLAYER_DAMAGE_MOBS = new StateFlag("damage-mobs", false);
+	public final static StateFlag DISABLE_COLLISIONS = new StateFlag("disable-collisions", false);
 	
 	public final static LocationFlag RESPAWN_LOCATION = new LocationFlag("respawn-location");
 	

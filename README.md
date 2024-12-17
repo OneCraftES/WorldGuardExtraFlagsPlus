@@ -19,5 +19,15 @@ Controls whether players can damage non-player entities (mobs) in the region.
 
 This flag prevents players from damaging any non-player entities within the region when set to DENY. When set to ALLOW, players can damage mobs normally. This is useful for creating safe zones for mobs or areas where players should not interfere with creatures. In OneCraft, we use it to prevent non-members from damaging mobs in player's regions as we find it a form of griefing.
 
+### disable-collisions
+Controls whether entities can collide with each other in the region.
+- Type: State flag (ALLOW/DENY)
+- Default: DENY
+- Example: `/rg flag <region> disable-collisions allow`
+
+This flag disables entity collisions within the region when set to ALLOW. When set to DENY (default), normal collision mechanics apply. This is useful for areas where you want to prevent entity pushing/bumping, such as spawn points, parkour areas, or crowded zones. The flag affects all types of entity collisions, not just player-to-player collisions.
+
+This feature was inspired by and based on [WorldGuardDisableCollision](https://github.com/magrigry/WorldGuardDisableCollision), integrated into WorldGuardExtraFlags for convenience.
+
 ## More
 Download and usage are provided on the corresponding [Spigot page](https://www.spigotmc.org/resources/worldguard-extra-flags.4823/)
