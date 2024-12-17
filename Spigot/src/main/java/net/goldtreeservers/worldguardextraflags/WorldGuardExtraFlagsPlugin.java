@@ -28,6 +28,7 @@ import com.sk89q.worldguard.protection.flags.Flag;
 import lombok.Getter;
 import net.goldtreeservers.worldguardextraflags.flags.Flags;
 import net.goldtreeservers.worldguardextraflags.protocollib.ProtocolLibHelper;
+import net.goldtreeservers.worldguardextraflags.utils.CollisionManager;
 import org.bukkit.plugin.java.JavaPlugin;
 
 public class WorldGuardExtraFlagsPlugin extends JavaPlugin
@@ -124,7 +125,7 @@ public class WorldGuardExtraFlagsPlugin extends JavaPlugin
 		this.sessionManager.registerHandler(FlyFlagHandler.FACTORY(), null);
 		this.sessionManager.registerHandler(GlideFlagHandler.FACTORY(), null);
 		this.sessionManager.registerHandler(GodmodeFlagHandler.FACTORY(), null);
-		this.sessionManager.registerHandler(PlayerCollisionFlagHandler.FACTORY, null);
+		this.sessionManager.registerHandler(DisableCollisionFlagHandler.FACTORY, null);
 		this.sessionManager.registerHandler(PlaySoundsFlagHandler.FACTORY(plugin), null);
 		this.sessionManager.registerHandler(BlockedEffectsFlagHandler.FACTORY(), null);
 		this.sessionManager.registerHandler(GiveEffectsFlagHandler.FACTORY(), null);
