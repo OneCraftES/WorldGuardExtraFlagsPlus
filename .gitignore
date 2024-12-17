@@ -1,0 +1,71 @@
+# Build artifacts
+WG/target/
+Spigot/target/
+
+# Eclipse
+.classpath
+.project
+.settings/
+
+# IntelliJ IDEA
+.idea/
+*.iml
+*.iws
+*.ipr
+
+# NetBeans
+nbproject/
+build/
+nbbuild/
+dist/
+nbdist/
+.nb-gradle/
+
+# Maven
+target/
+dependency-reduced-pom.xml
+pom.xml.tag
+pom.xml.releaseBackup
+pom.xml.versionsBackup
+pom.xml.next
+release.properties
+
+# Gradle
+.gradle/
+build/
+
+# Compiled files
+*.class
+bin/
+out/
+
+# Package Files
+*.jar
+*.war
+*.nar
+*.ear
+*.zip
+*.tar.gz
+*.rar
+
+# Minecraft specific
+*.log
+logs/
+plugins/
+server/
+
+# Operating System
+.DS_Store
+Thumbs.db
+Desktop.ini
+
+# Debug files
+hs_err_pid*
+replay_pid*
+
+# Temporary files
+*~
+*.swp
+*.bak
+tmp/
+temp/
