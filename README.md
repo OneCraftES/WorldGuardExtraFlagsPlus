@@ -29,5 +29,13 @@ This flag disables entity collisions within the region when set to ALLOW. When s
 
 This feature was inspired by and based on [WorldGuardDisableCollision](https://github.com/magrigry/WorldGuardDisableCollision), integrated into WorldGuardExtraFlags for convenience.
 
+### lava-damage
+Controls whether entities take damage from lava in the region.
+- Type: State flag (ALLOW/DENY)
+- Default: ALLOW (Lava damage is enabled by default)
+- Example: `/rg flag <region> lava-damage deny`
+
+This flag prevents entities from taking damage from lava when set to DENY. It also prevents entities from catching fire when entering lava, so they won't burn after exiting. This is useful for creating safe lava parkour areas or decorative lava features.
+
 ## More
 Download and usage are provided on the corresponding [Spigot page](https://www.spigotmc.org/resources/worldguard-extra-flags.4823/)
