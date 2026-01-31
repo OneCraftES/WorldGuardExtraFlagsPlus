@@ -23,9 +23,7 @@ import org.bukkit.event.player.PlayerTeleportEvent;
 import org.bukkit.inventory.meta.ItemMeta;
 import org.bukkit.inventory.meta.PotionMeta;
 import org.bukkit.potion.PotionEffect;
-import org.bukkit.potion.PotionEffectType;
 import org.bukkit.scheduler.BukkitRunnable;
-import com.destroystokyo.paper.event.player.PlayerInitialSpawnEvent;
 
 import com.sk89q.worldguard.protection.ApplicableRegionSet;
 import com.sk89q.worldguard.protection.flags.StateFlag.State;
@@ -185,18 +183,6 @@ public class PlayerListener implements Listener {
 		if (this.regionContainer.createQuery().queryState(localPlayer.getLocation(), localPlayer,
 				Flags.ITEM_DURABILITY) == State.DENY) {
 			event.setCancelled(true);
-		}
-	}
-
-	@EventHandler(priority = EventPriority.HIGHEST)
-	public void onPlayerSpawnLocationEvent(PlayerInitialSpawnEvent event) {
-		Player player = event.getPlayer();
-		LocalPlayer localPlayer = WorldGuardPlugin.inst().wrapPlayer(player);
-
-		Location location = this.regionContainer.createQuery().queryValue(BukkitAdapter.adapt(event.getSpawnLocation()),
-				localPlayer, Flags.JOIN_LOCATION);
-		if (location != null) {
-			event.setSpawnLocation(BukkitAdapter.adapt(location));
 		}
 	}
 

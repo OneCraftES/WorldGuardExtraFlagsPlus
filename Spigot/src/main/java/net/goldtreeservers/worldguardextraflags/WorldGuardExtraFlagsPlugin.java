@@ -140,6 +140,13 @@ public class WorldGuardExtraFlagsPlugin extends JavaPlugin {
 		this.getServer().getPluginManager().registerEvents(
 				new EntityListener(this.worldGuardPlugin, this.regionContainer, this.sessionManager), this);
 
+		try {
+			Class.forName("com.destroystokyo.paper.event.player.PlayerInitialSpawnEvent");
+			this.getServer().getPluginManager().registerEvents(new PaperPlayerListener(this, this.regionContainer),
+					this);
+		} catch (ClassNotFoundException ignored) {
+		}
+
 		CollisionManager.initialize();
 
 		this.worldEditPlugin.getWorldEdit().getEventBus()
