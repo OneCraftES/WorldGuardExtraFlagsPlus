@@ -130,4 +130,24 @@ public class EntityListener implements Listener {
             }
         }
     }
+
+    @EventHandler(ignoreCancelled = true)
+    public void onEntityCombustByBlock(org.bukkit.event.entity.EntityCombustByBlockEvent event) {
+        if (event.getCombuster() != null && event.getCombuster().getType() == org.bukkit.Material.LAVA) {
+            LocalPlayer localPlayer;
+            if (event.getEntity() instanceof Player player) {
+                localPlayer = this.worldGuardPlugin.wrapPlayer(player);
+            } else {
+                localPlayer = null;
+            }
+
+            ApplicableRegionSet regions = this.regionContainer.createQuery()
+                    .getApplicableRegions(BukkitAdapter.adapt(event.getEntity().getLocation()));
+
+            State state = regions.queryValue(localPlayer, Flags.LAVA_DAMAGE);
+            if (state != null && state == State.DENY) {
+                event.setCancelled(true);
+            }
+        }
+    }
 }
