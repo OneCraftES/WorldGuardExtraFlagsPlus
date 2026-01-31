@@ -45,7 +45,8 @@ public class EntityListener implements Listener {
         }
 
         for (BlockState block : event.getBlocks()) {
-            if (this.regionContainer.createQuery().queryState(BukkitAdapter.adapt(block.getLocation()), localPlayer, Flags.NETHER_PORTALS) == State.DENY) {
+            if (this.regionContainer.createQuery().queryState(BukkitAdapter.adapt(block.getLocation()), localPlayer,
+                    Flags.NETHER_PORTALS) == State.DENY) {
                 event.setCancelled(true);
                 break;
             }
@@ -61,7 +62,8 @@ public class EntityListener implements Listener {
                 return;
             }
 
-            ForcedStateFlag.ForcedState state = this.regionContainer.createQuery().queryValue(localPlayer.getLocation(), localPlayer, Flags.GLIDE);
+            ForcedStateFlag.ForcedState state = this.regionContainer.createQuery().queryValue(localPlayer.getLocation(),
+                    localPlayer, Flags.GLIDE);
             switch (state) {
                 case ALLOW:
                     break;
@@ -72,7 +74,7 @@ public class EntityListener implements Listener {
 
                     event.setCancelled(true);
 
-                    //Prevent the player from being allowed to glide by spamming space
+                    // Prevent the player from being allowed to glide by spamming space
                     player.teleport(player.getLocation());
 
                     break;
@@ -93,10 +95,11 @@ public class EntityListener implements Listener {
     @EventHandler(ignoreCancelled = true)
     public void onEntityDamage(EntityDamageByEntityEvent event) {
         if (event.getDamager() instanceof Player player) {
-            if(event.getEntity().getType() != EntityType.PLAYER) {
+            if (event.getEntity().getType() != EntityType.PLAYER) {
 
                 LocalPlayer localPlayer = this.worldGuardPlugin.wrapPlayer(player);
-                ApplicableRegionSet regions = this.regionContainer.createQuery().getApplicableRegions(localPlayer.getLocation());
+                ApplicableRegionSet regions = this.regionContainer.createQuery()
+                        .getApplicableRegions(localPlayer.getLocation());
 
                 State CanDamageMobs = regions.queryValue(localPlayer, Flags.PLAYER_DAMAGE_MOBS);
                 if (CanDamageMobs != null) {
@@ -104,6 +107,26 @@ public class EntityListener implements Listener {
                         event.setCancelled(true);
                     }
                 }
+            }
+        }
+    }
+
+    @EventHandler(ignoreCancelled = true)
+    public void onEntityDamage(EntityDamageEvent event) {
+        if (event.getCause() == EntityDamageEvent.DamageCause.LAVA) {
+            LocalPlayer localPlayer;
+            if (event.getEntity() instanceof Player player) {
+                localPlayer = this.worldGuardPlugin.wrapPlayer(player);
+            } else {
+                localPlayer = null;
+            }
+
+            ApplicableRegionSet regions = this.regionContainer.createQuery()
+                    .getApplicableRegions(BukkitAdapter.adapt(event.getEntity().getLocation()));
+
+            State state = regions.queryValue(localPlayer, Flags.LAVA_DAMAGE);
+            if (state != null && state == State.DENY) {
+                event.setCancelled(true);
             }
         }
     }
